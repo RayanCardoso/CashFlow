@@ -1,0 +1,63 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+*.nuget.props
+*.nuget.targets
+*.lock.json
+packages/
+*.vsix
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# Test results
+[Tt]est[Rr]esult*/
+[Tt]est[Rr]esults*/
+*.trx
+*.coverage
+*.coveragexml
+
+# Publish
+publish/
+out/
+
+# Cache
+*.pidb
+*.svclog
+*.scc
+
+# Azure
+*.azurePubxml
+*.pubxml
+*.pubxml.user
+PublishProfiles/
+
+# Others
+*.tmp
+*.temp
+*.dbmdl
+*.jfm
+*.pdb
+*.bak
+*.orig
+
+# OS-specific
+.DS_Store
+Thumbs.db
