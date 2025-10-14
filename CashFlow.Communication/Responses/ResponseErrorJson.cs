@@ -1,12 +1,18 @@
-﻿namespace CashFlow.Communication.Responses
+﻿using System.Net.Http.Headers;
+
+namespace CashFlow.Communication.Responses
 {
     public class ResponseErrorJson
     {
-        public string ErrorMessage { get; set; } = string.Empty;
+        public List<string> ErrorMessages { get; set; }
 
         public ResponseErrorJson(string errorMessage)
         {
-            ErrorMessage = errorMessage;
+            ErrorMessages = [errorMessage];
+        }
+        public ResponseErrorJson(List<string> errorMessages)
+        {
+            ErrorMessages = errorMessages;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CashFlow.Communication.Enums;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
+using CashFlow.Exception.ExceptionBase;
 
 namespace CashFlow.Application.UseCases.Expenses.Register
 {
@@ -23,7 +24,7 @@ namespace CashFlow.Application.UseCases.Expenses.Register
             {
                 var errorMessages = result.Errors.Select(f => f.ErrorMessage).ToList();
 
-                throw new ArgumentException();
+                throw new ErrorOnValidationException(errorMessages);
             }
         }
     }
