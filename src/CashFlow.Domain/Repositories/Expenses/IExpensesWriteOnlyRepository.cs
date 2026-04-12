@@ -2,7 +2,7 @@
 
 namespace CashFlow.Domain.Repositories.Expenses;
 
-public interface IExpensesRepository
+public interface IExpensesWriteOnlyRepository
 {
     Task Add(Expense expense);
 }
