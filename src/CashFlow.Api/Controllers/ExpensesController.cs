@@ -1,9 +1,11 @@
-﻿using CashFlow.Application.UseCases.Expenses.Register;
+﻿using CashFlow.Application.UseCases.Expenses.Delete;
 using CashFlow.Application.UseCases.Expenses.GetAll;
+using CashFlow.Application.UseCases.Expenses.GetById;
+using CashFlow.Application.UseCases.Expenses.Register;
+using CashFlow.Application.UseCases.Expenses.Update;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
-using CashFlow.Application.UseCases.Expenses.GetById;
 
 namespace CashFlow.Api.Controllers;
 
@@ -51,17 +53,32 @@ public class ExpensesController : ControllerBase
         return Ok(response);
     }
 
-    //[HttpDelete]
-    //[Route("{id}")]
-    //[ProducesResponseType(StatusCodes.Status204NoContent)]
-    //[ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    //public async Task<IActionResult> Delete (
-    //    [FromServices] IDeleteExpenseUseCase useCase,
-    //    [FromRoute] long id
-    //)
-    //{
-    //    var response = await useCase.Execute(id);
+    [HttpDelete]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(
+        [FromServices] IDeleteExpenseUseCase useCase,
+        [FromRoute] long id
+    )
+    {
+        await useCase.Execute(id);
 
-    //    return NoContent();
-    //}
+        return NoContent();
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(
+        [FromServices] IUpdateExpenseUseCase useCase,
+        [FromRoute] long id,
+        [FromBody] RequestExpenseJson request)
+    {
+        await useCase.Execute(id, request);
+
+        return NoContent();
+    }
 }
