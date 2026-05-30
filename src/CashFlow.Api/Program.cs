@@ -32,4 +32,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+await MigrateDataBase();
+
 app.Run();
+
+async Task MigrateDataBase()
+{
+    await using var scope = app.Services.CreateAsyncScope();
+    using var dbContext = scope.ServiceProvider.GetService<CashFlowDbContext>();
+}
