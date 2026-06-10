@@ -1,9 +1,15 @@
-﻿namespace CashFlow.Infrastructure.Migrations;
+﻿using CashFlow.Infrastructure.DataAccess;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
-public class DataBaseMigration
+namespace CashFlow.Infrastructure.Migrations;
+
+public static class DataBaseMigration
 {
-    public async Task MigrateDatabase()
+    public async static Task MigrateDatabase(IServiceProvider serviceProvider)
     {
+        var dbContext = serviceProvider.GetRequiredService<CashFlowDbContext>();
 
+        await dbContext.Database.MigrateAsync();
     }
 }
