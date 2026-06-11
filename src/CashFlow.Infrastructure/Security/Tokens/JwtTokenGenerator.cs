@@ -2,6 +2,7 @@
 using CashFlow.Domain.Security.Tokens;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace CashFlow.Infrastructure.Security.Tokens;
@@ -19,10 +20,18 @@ public class JwtTokenGenerator: IAccessTokenGenerator
 
     public string Generate(User user)
     {
+        var claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.Name, user.Name),
+            new Claim(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.Sid, user.UserIdentifier.ToString())
+        };
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Expires = DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
-            SigningCredentials = new SigningCredentials(SecurityKey(), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = new SigningCredentials(SecurityKey(), SecurityAlgorithms.HmacSha256Signature),
+            Subject = new ClaimsIdentity()
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
