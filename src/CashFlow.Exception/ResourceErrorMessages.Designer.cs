@@ -79,7 +79,7 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a O email não pode estar vazio..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The email can&apos;t be empty..
         /// </summary>
         public static string EMAIL_EMPTY {
             get {
@@ -88,11 +88,20 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a O email é inválido..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The email is invalid..
         /// </summary>
         public static string EMAIL_INVALID {
             get {
                 return ResourceManager.GetString("EMAIL_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid email and/or password..
+        /// </summary>
+        public static string EMAIL_OR_PASSWORD_INVALID {
+            get {
+                return ResourceManager.GetString("EMAIL_OR_PASSWORD_INVALID", resourceCulture);
             }
         }
         
@@ -124,7 +133,7 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a O nome não pode estar vazio..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The name can&apos;t be empty..
         /// </summary>
         public static string NAME_EMPTY {
             get {
