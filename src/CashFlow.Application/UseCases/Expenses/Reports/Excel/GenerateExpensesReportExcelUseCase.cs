@@ -34,7 +34,7 @@ public class GenerateExpensesReportExcelUseCase: IGenerateExpensesReportExcelUse
 
         using var workbook = new XLWorkbook();
 
-        workbook.Author = "Rayan Cardoso";
+        workbook.Author = loggedUser.Name;
         workbook.Style.Font.FontSize = 12;
         workbook.Style.Font.FontName = "Times New Roman";
 
