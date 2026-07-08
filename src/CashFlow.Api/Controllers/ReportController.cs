@@ -19,7 +19,7 @@ public class ReportController : Controller
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetExcel(
         [FromServices] IGenerateExpensesReportExcelUseCase useCase,
-        [FromHeader] DateOnly month
+        [FromQuery] DateOnly month
     )
     {
         byte[] file = await useCase.Execute(month);

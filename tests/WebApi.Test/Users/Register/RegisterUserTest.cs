@@ -13,20 +13,19 @@ using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Users.Register;
 
-public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
+public class RegisterUserTest : CashFlowClassFixture
 {
     private const string METHOD = "api/User";
-    private readonly HttpClient _httpClient;
-    public RegisterUserTest(CustomWebApplicationFactory webApplicationFactory)
+    public RegisterUserTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-        _httpClient = webApplicationFactory.CreateClient();
     }
+
     [Fact]
     public async Task Sucess()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(METHOD, request);
 
         result.StatusCode.ShouldBe(HttpStatusCode.Created);
 
@@ -40,14 +39,12 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
 
     [Theory]
     [ClassData(typeof(CultureInlineDataTest))]
-    public async Task Error_Empty_Name(string cultureInfo)
+    public async Task Error_Empty_Name(string culture)
     {
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Name = string.Empty;
 
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(cultureInfo));
-
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(requestUri: METHOD, request: request, culture: culture);
 
         result.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
@@ -59,7 +56,7 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
 
         var expectedMessage = ResourceErrorMessages.ResourceManager.GetString(
             "NAME_EMPTY",
-            new CultureInfo(cultureInfo)
+            new CultureInfo(culture)
         );
 
         errors.Count.ShouldBe(1);
